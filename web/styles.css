@@ -1,0 +1,19 @@
+:root{
+  --purple:#5b2e91;
+  --gold:#c99a4a;
+  --black:#111;
+  --white:#fff;
+}
+*{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
+body{background:linear-gradient(180deg,var(--purple),#3b1f63);min-height:100vh;color:var(--white);display:flex;align-items:center;justify-content:center;padding:24px}
+.container{width:100%;max-width:980px}
+.card{background:rgba(255,255,255,0.06);padding:20px;border-radius:10px;margin-bottom:12px}
+.hidden{display:none}
+h1,h2{margin:0 0 12px 0}
+input{display:block;width:100%;padding:10px;margin:8px 0;border-radius:6px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.03);color:var(--white)}
+.btn{padding:10px 14px;margin:6px;border-radius:8px;border:none;background:var(--black);color:var(--white);cursor:pointer}
+.btn-primary{background:linear-gradient(90deg,var(--gold),#e0b155);color:var(--black);font-weight:700}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.output{margin-top:12px;padding:10px;border-radius:6px;background:rgba(0,0,0,0.2);min-height:120px}
+header{display:flex;align-items:center;justify-content:space-between}
+.card h2{color:var(--gold)}

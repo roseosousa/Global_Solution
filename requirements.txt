@@ -1,0 +1,8 @@
+fpdf
+flask
+flask-cors
+pandas
+matplotlib
+PyJWT>=2.0.0
+gunicorn
+bcrypt

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Sales Copilot — Painel</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section id="login" class="card">
+        <h1>Bem-vindo</h1>
+        <input id="nome" placeholder="Nome" />
+        <input id="senha" placeholder="Senha" type="password" />
+        <button id="btnLogin" class="btn-primary">Entrar</button>
+      </section>
+
+      <section id="panel" class="card hidden">
+        <header>
+          <h2 id="userLabel"></h2>
+          <button id="btnLogout" class="btn">Sair</button>
+        </header>
+        <div class="actions">
+          <button id="btnSeed" class="btn">Popular DB</button>
+          <button id="btnGen" class="btn">Gerar Proposta</button>
+          <button id="btnWell" class="btn">Registrar Wellbeing</button>
+          <button id="btnReport" class="btn">Gerar Relatório (R)</button>
+          <button id="btnList" class="btn">Listar Deliverables</button>
+        </div>
+        <div id="output" class="output"></div>
+      </section>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
