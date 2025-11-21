@@ -1,6 +1,7 @@
 """Servidor Flask do projeto Global_Solution.
 
-Endpoints usados pela SPA em `web/`. Mensagens ao usuário em pt-BR.
+Versão canônica do servidor para uso local e em contêiner.
+Mensagens expostas ao usuário estão em pt-BR.
 """
 
 from datetime import datetime, timedelta
@@ -138,76 +139,6 @@ def api_seed():
             raise RuntimeError('Módulo de seed não disponível')
         seed_fixtures.seed()
         return jsonify({'ok': True, 'message': 'Seed executado'})
-    except Exception as e:
-        return jsonify({'ok': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
-
-
-@app.route('/api/generate_proposal', methods=['POST'])
-@token_required
-def api_generate_proposal():
-    data = request.json or {}
-    id_cliente = data.get('id_cliente', 1)
-    valor = data.get('valor', 19990)
-    id_responsavel = data.get('id_responsavel', 1)
-    try:
-        if automation_module is None:
-            raise RuntimeError('Módulo de automação não disponível')
-        path = automation_module.gerar_proposta_comercial(
-            id_cliente, valor, id_responsavel
-        )
-        return jsonify({'ok': True, 'path': path})
-    except Exception as e:
-        return jsonify({'ok': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
-
-
-@app.route('/api/register_wellbeing', methods=['POST'])
-@token_required
-def api_register_wellbeing():
-    data = request.json or {}
-    id_funcionario = data.get('id_funcionario')
-    problema = data.get('problema', 'carga de trabalho')
-    if not id_funcionario:
-        return jsonify({'ok': False, 'error': 'id_funcionario é obrigatório'}), 400
-    try:
-        if wellbeing_module is None:
-            raise RuntimeError('Módulo wellbeing não disponível')
-        result = wellbeing_module.registrar_log_estresse_e_pontuar(
-            id_funcionario, problema
-        )
-        return jsonify({'ok': True, 'result': result})
-    except Exception as e:
-        return jsonify({'ok': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
-
-
-@app.route('/api/run_report', methods=['POST'])
-@token_required
-def api_run_report():
-    try:
-        rscript_path = os.path.join(ROOT, 'stress_analysis_report.R')
-        if os.path.exists(rscript_path):
-            proc = subprocess.run(
-                ['Rscript', rscript_path], capture_output=True, text=True
-            )
-            ok = proc.returncode == 0
-            return jsonify({
-                'ok': ok,
-                'stdout': proc.stdout,
-                'stderr': proc.stderr,
-                'used': 'Rscript',
-            })
-
-        py = os.path.join(ROOT, 'report_py.py')
-        if os.path.exists(py):
-            proc = subprocess.run(['python3', py], capture_output=True, text=True)
-            ok = proc.returncode == 0
-            return jsonify({
-                'ok': ok,
-                'stdout': proc.stdout,
-                'stderr': proc.stderr,
-                'used': 'python-report',
-            })
-
-        return jsonify({'ok': False, 'error': 'Nenhum script de relatório encontrado'}), 404
     except Exception as e:
         return jsonify({'ok': False, 'error': str(e), 'trace': traceback.format_exc()}), 500
 
